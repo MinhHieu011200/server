@@ -6,6 +6,10 @@ var schema = new mongoose.Schema(
             type: String,
             ref: 'Permission'
         },
+        id_rank: {
+            type: String,
+            ref: 'Rank'
+        },
         username: String,
         password: String,
         fullname: String,

@@ -8,10 +8,13 @@ var schema = new mongoose.Schema(
         describe: String,
         startDate: Date,
         endDate: Date,
-        id_rank: String,
         id_payment: {
             type: String,
             ref: 'Payment'
+        },
+        id_rank: {
+            type: String,
+            ref: 'Rank'
         },
     }
 );

@@ -18,6 +18,10 @@ var schema = new mongoose.Schema(
             type: String,
             ref: 'MoMo'
         },
+        id_paypal: {
+            type: String,
+            ref: 'Paypal'
+        },
         id_coupon: {
             type: String,
             ref: 'Coupon'

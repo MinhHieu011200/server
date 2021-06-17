@@ -1,6 +1,7 @@
 const User = require('../../../Models/user')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const Order = require('../../../Models/order')
 
 module.exports.index = async (req, res) => {
     let page = parseInt(req.query.page) || 1;
@@ -118,7 +119,7 @@ module.exports.login = async (req, res) => {
 
     const body = [{ username: email }, { email: email }]
 
-    const user = await User.findOne({ $or: body }).populate('id_permission')
+    const user = await User.findOne({ $or: body }).populate(['id_permission', 'id_rank'])
 
     if (user === null) {
         res.json({ msg: "Không Tìm Thấy User" })
@@ -127,6 +128,7 @@ module.exports.login = async (req, res) => {
         const auth = await bcrypt.compare(password, user.password)
         if (auth) {
             var token = jwt.sign(user._id.toJSON(), 'gfdgfd');
+
             res.json({ msg: "Đăng nhập thành công", user: user, jwt: token })
         } else {
             res.json({ msg: "Sai mật khẩu" })
@@ -186,6 +188,4 @@ module.exports.checkLogin = async function (req, res) {
         return res.json({ msg: "Thất bại" })
     }
     res.json({ msg: "Thành công" })
-
-
 }

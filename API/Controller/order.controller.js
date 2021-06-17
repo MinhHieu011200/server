@@ -344,9 +344,6 @@ module.exports.momo2 = async (req, res) => {
 
 
 
-
-
-
 // module.exports.post_paypal = async (req, res) => {
 
 //     var create_payment_json = {
