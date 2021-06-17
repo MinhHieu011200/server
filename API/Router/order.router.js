@@ -12,7 +12,7 @@ router.get('/order/detail/:id', Order.get_detail)
 
 // Đặt Hàng thêm vào hóa đơn
 router.post('/order', Order.checkorder, Order.post_order)
-router.post('/order2', Order.checkorder, Order.post_order2)
+router.post('/order2', Order.post_order2)
 
 router.post('/checkcart', Order.checkCart)
 
