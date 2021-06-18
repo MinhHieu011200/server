@@ -22,7 +22,7 @@ module.exports.index = async (req, res) => {
     } else {
         var newData = products.filter(value => {
             return value.name_product.toUpperCase().indexOf(keyWordSearch.toUpperCase()) !== -1 ||
-                value.price_product.toUpperCase().indexOf(keyWordSearch.toUpperCase()) !== -1 ||
+                value.price_product.toString().toUpperCase().indexOf(keyWordSearch.toUpperCase()) !== -1 ||
                 value._id.toString().toUpperCase().indexOf(keyWordSearch.toUpperCase()) !== -1 ||
                 (value.id_producer && value.id_producer.producer.toUpperCase().indexOf(keyWordSearch.toUpperCase()) !== -1) ||
                 (value.id_producer && value.id_producer._id.toString().toUpperCase().indexOf(keyWordSearch.toUpperCase()) !== -1)

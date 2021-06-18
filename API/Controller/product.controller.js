@@ -5,7 +5,7 @@ const Category = require('../../Models/producer')
 
 module.exports.index = async (req, res) => {
     let products = await Products.find().populate(['id_producer', 'id_sale']);
-    
+
     res.json(products)
 }
 
@@ -14,7 +14,7 @@ module.exports.search = async (req, res) => {
     let products = await Products.find().populate(['id_producer', 'id_sale']);
     products = products.filter(value => {
         return value.name_product.toUpperCase().indexOf(keyWordSearch.toUpperCase()) !== -1 ||
-            value.price_product.toUpperCase().indexOf(keyWordSearch.toUpperCase()) !== -1 ||
+            value.price_product.toString().toUpperCase().indexOf(keyWordSearch.toUpperCase()) !== -1 ||
             value.id.toUpperCase().indexOf(keyWordSearch.toUpperCase()) !== -1 ||
             (value.id_producer && value.id_producer.producer.toUpperCase().indexOf(keyWordSearch.toUpperCase()) !== -1)
     })

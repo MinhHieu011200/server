@@ -71,12 +71,16 @@ module.exports.detailProduct = async (req, res) => {
     const keyWordSearch = req.query.search;
 
     const perPage = parseInt(req.query.limit) || 8;
-
+    const sort = req.query.sort || ""
 
     let start = (page - 1) * perPage;
     let end = page * perPage;
-
-    let products = await Product.find().populate(['id_producer', 'id_sale']);
+    let products = []
+    if (sort === "") {
+        products = await Product.find().populate(['id_producer', 'id_sale'])
+    } else {
+        products = await Product.find().populate(['id_producer', 'id_sale']).sort({ 'price_product': sort });
+    }
 
     if (req.params.id === 'sale' && !keyWordSearch) {
         products = products.filter((c) => {
@@ -98,7 +102,7 @@ module.exports.detailProduct = async (req, res) => {
     } else {
         var newData = products.filter(value => {
             return value.name_product.toUpperCase().indexOf(keyWordSearch.toUpperCase()) !== -1 ||
-                value.price_product.toUpperCase().indexOf(keyWordSearch.toUpperCase()) !== -1 ||
+                value.price_product.toString().toUpperCase().indexOf(keyWordSearch.toUpperCase()) !== -1 ||
                 value.id.toUpperCase().indexOf(keyWordSearch.toUpperCase()) !== -1 ||
                 (value.id_producer && value.id_producer.producer.toUpperCase().indexOf(keyWordSearch.toUpperCase()) !== -1)
         })
