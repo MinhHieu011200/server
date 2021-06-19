@@ -123,15 +123,18 @@ module.exports.update = async (req, res) => {
                     $unset: { id_sale: "" }
                 })
             }
-            if (e.producer) {
-                await Product.updateMany({ id_producer: e._id }, {
-                    id_sale: req.query.id
-                })
-            } else {
-                await Product.updateOne({ _id: e._id }, {
-                    id_sale: req.query.id
-                })
+            else {
+                if (e.producer) {
+                    await Product.updateMany({ id_producer: e._id }, {
+                        id_sale: req.query.id
+                    })
+                } else {
+                    await Product.updateOne({ _id: e._id }, {
+                        id_sale: req.query.id
+                    })
+                }
             }
+
 
         })
     }
