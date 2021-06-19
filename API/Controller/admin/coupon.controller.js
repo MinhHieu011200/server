@@ -61,7 +61,7 @@ module.exports.postCreate = async (req, res) => {
 }
 
 module.exports.delete = async (req, res) => {
-    console.log(id)
+    const id = req.params.id;
     await Coupon.deleteOne({ _id: id }, (err) => {
         if (err) {
             res.json({ msg: err })
@@ -102,8 +102,6 @@ module.exports.checkCoupon = async (req, res) => {
     const payment = req.body.payment
     const rank = req.body.rank
     const date = new Date()
-    console.log(rank)
-
     const coupon = await Coupon.findOne({ code: code }).populate(['id_payment', 'id_rank']);
 
     if (!coupon) {
