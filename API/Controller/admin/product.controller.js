@@ -17,7 +17,8 @@ module.exports.index = async (req, res) => {
     if (!keyWordSearch) {
         res.json({
             products: products.slice(start, end),
-            totalPage: totalPage
+            totalPage: totalPage,
+            totalLength:totalLength
         })
 
     } else {
