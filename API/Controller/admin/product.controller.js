@@ -5,7 +5,8 @@ module.exports.index = async (req, res) => {
     const keyWordSearch = req.query.search;
 
     const perPage = parseInt(req.query.limit) || 8;
-    const totalPage = Math.ceil(await Product.countDocuments() / perPage);
+    const totalLength = parseInt(await Product.countDocuments())
+    const totalPage = Math.ceil(totalLength / perPage);
 
     let start = (page - 1) * perPage;
     let end = page * perPage;
@@ -30,7 +31,8 @@ module.exports.index = async (req, res) => {
 
         res.json({
             products: newData.slice(start, end),
-            totalPage: totalPage
+            totalPage: totalPage,
+            totalLength: totalLength
         })
     }
 }
