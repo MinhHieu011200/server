@@ -6,7 +6,8 @@ module.exports.index = async (req, res) => {
     const keyWordSearch = req.query.search;
 
     const perPage = parseInt(req.query.limit) || 8;
-    const totalPage = Math.ceil(await Producer.countDocuments() / perPage);
+    const totalLength = parseInt(await Producer.countDocuments())
+    const totalPage = Math.ceil(totalLength / perPage);
 
     let start = (page - 1) * perPage;
     let end = page * perPage;
@@ -17,7 +18,8 @@ module.exports.index = async (req, res) => {
     if (!keyWordSearch) {
         res.json({
             producers: producers.slice(start, end),
-            totalPage: totalPage
+            totalPage: totalPage,
+            totalLength:totalLength
         })
 
     } else {
@@ -28,10 +30,12 @@ module.exports.index = async (req, res) => {
 
         res.json({
             producers: newData.slice(start, end),
-            totalPage: totalPage
+            totalPage: totalPage,
+            totalLength:totalLength
         })
     }
 }
+
 
 module.exports.create = async (req, res) => {
     const producer = await Producer.find();
